@@ -1,3 +1,44 @@
+<?php
+
+    $hotels = [
+        [
+            'name' => 'Hotel Belvedere',
+            'description' => 'Hotel Belvedere Descrizione',
+            'parking' => true,
+            'vote' => 4,
+            'distance_to_center' => 10.4
+        ],
+        [
+            'name' => 'Hotel Futuro',
+            'description' => 'Hotel Futuro Descrizione',
+            'parking' => true,
+            'vote' => 2,
+            'distance_to_center' => 2
+        ],
+        [
+            'name' => 'Hotel Rivamare',
+            'description' => 'Hotel Rivamare Descrizione',
+            'parking' => false,
+            'vote' => 1,
+            'distance_to_center' => 1
+        ],
+        [
+            'name' => 'Hotel Bellavista',
+            'description' => 'Hotel Bellavista Descrizione',
+            'parking' => false,
+            'vote' => 5,
+            'distance_to_center' => 5.5
+        ],
+        [
+            'name' => 'Hotel Milano',
+            'description' => 'Hotel Milano Descrizione',
+            'parking' => true,
+            'vote' => 2,
+            'distance_to_center' => 50
+        ],
+    ];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +50,41 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descrizione</th>
+                            <th>Parcheggio</th>
+                            <th>Voto</th>
+                            <th>Distanza dal centro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($hotels as $item){?>
+                            <tr>
+                                <td><?php echo $item['name']; ?></td>
+                                <td><?php echo $item['description']; ?></td>
+                                <td>
+                                    <?php if($item['parking']){
+                                        echo 'Si';
+                                    }else{
+                                        echo 'No';
+                                    }; ?>
+                                </td>
+                                <td><?php echo $item['vote']; ?></td>
+                                <td><?php echo $item['distance_to_center']." Km"; ?></td>
+                            </tr>
+                        <?php }?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     
 </body>
 </html>
