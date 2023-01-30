@@ -1,5 +1,7 @@
 <?php
 
+    // array alberghi
+
     $hotels = [
         [
             'name' => 'Hotel Belvedere',
@@ -53,12 +55,35 @@
     <div class="container">
         <div class="row">
             <div class="col">
+
+                <!-- form parcheggio -->
+
+                <form action="./index.php" method="GET">
+                    <h3>Parcheggio</h3>
+                    <input type="radio" name="parcheggio" value="Si">
+                    <label for="Si">Si</label><br>
+                    <input type="radio" name="parcheggio" value="No">
+                    <label for="No">No</label><br>
+                    <button type="submit">Cerca</button>
+                </form>
+
+                <!-- form voto -->
+
+                <form action="/index.php" method="GET">
+                    <h3>Voto</h3>
+                    <label for="quantity">Voto:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="5"><br>
+                    <button type="submit">Cerca</button>
+                </form>
+
+                <!-- tabella -->
+
                 <table class="table">
                     <thead>
 
                         <!-- ciclo le chiavi dell'array di array -->
 
-                        <?php foreach($hotels[0] as $key => $item){?>
+                         <?php foreach($hotels[0] as $key => $item){?>
                             <th>
                                 <?php echo ($key); ?>
                             </th>
@@ -69,8 +94,8 @@
                     <tbody>
 
                         <!-- ciclo gli oggetti dell'array -->
-
-                        <?php foreach($hotels as $item){ ?>
+                        
+                        <?php foreach($hotels as $item){?>
                             <tr>
                                 <td><?php echo $item['name']; ?></td>
                                 <td><?php echo $item['description']; ?></td>
