@@ -39,6 +39,28 @@
             'distance_to_center' => 50
         ],
     ];
+
+    $filteredArray = $hotels;
+    if(isset($_GET['vote']) && $_GET['vote'] !== ''){
+        $tempHotels = [];
+        foreach($hotels as $hotel){
+            if($hotel['vote'] >= $_GET['vote']){
+                $tempHotels[] = $hotel;
+            }
+        }
+        $filteredArray = $tempHotels;
+    }
+
+    if(isset ($_GET['parking']) && $_GET['parking'] !== ''){
+        $tempHotels = [];
+        foreach($filteredArray as $hotel){
+            if($hotel['parking'] == $_GET['parking']){
+                $tempHotels[] = $hotel;
+            }
+        }
+        $filteredArray = $tempHotels;
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,31 +71,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title>Document</title>
+    <title>PHP Hotels</title>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col">
 
-                <!-- form parcheggio -->
+                <!-- form per voto e parcheggio -->
 
                 <form action="./index.php" method="GET">
-                    <h3>Parcheggio</h3>
-                    <input type="radio" name="parcheggio" value="Si">
-                    <label for="Si">Si</label><br>
-                    <input type="radio" name="parcheggio" value="No">
-                    <label for="No">No</label><br>
-                    <button type="submit">Cerca</button>
-                </form>
+                    <div class="col-4">
+                        <label class="control-label">Vote</label>
+                        <input type="number" class="form-control" placeholder="Voto" name="vote" value="<?php echo isset($_GET['vote']) ? $_GET['vote'] : '' ?>">
+                    </div>
 
-                <!-- form voto -->
+                    <div class="col-4">
+                        <label class="control-label">Parking</label>
+                        <select class="form-control" name="parking">
+                            <option value="">Scegli</option>
+                            <option value="0" <?php echo (isset($_GET['parking']) && $_GET['parking'] == 0) ? 'selected' : '' ?>>No</option>
+                            <option value="1" <?php echo (isset($_GET['parking']) && $_GET['parking'] == 1) ? 'selected' : '' ?>>Si</option>
+                        </select>
+                    </div>
 
-                <form action="/index.php" method="GET">
-                    <h3>Voto</h3>
-                    <label for="quantity">Voto:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="5"><br>
-                    <button type="submit">Cerca</button>
+                    <div class="col-4">
+                        <button type="submit">Cerca</button>
+                        <button type="reset">Reset</button>
+                    </div>
                 </form>
 
                 <!-- tabella -->
@@ -94,8 +119,8 @@
                     <tbody>
 
                         <!-- ciclo gli oggetti dell'array -->
-                        
-                        <?php foreach($hotels as $item){?>
+
+                        <?php foreach($filteredArray as $item){?>
                             <tr>
                                 <td><?php echo $item['name']; ?></td>
                                 <td><?php echo $item['description']; ?></td>
